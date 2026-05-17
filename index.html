@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Algorithm Encyclopedia | Interactive Visualizations & Code</title>
+    <!-- Google Fonts for elegant typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --navy: #0b2545;
+            --navy-light: #133a6b;
+            --gold: #c5a059;
+            --gold-light: #d6b77a;
+            --gold-fade: rgba(197, 160, 89, 0.15);
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 30px -10px rgba(11, 37, 69, 0.15);
+            
+            /* Signature SNPSU Shape */
+            --radius-asym: 40px 0 40px 0;
+            --radius-asym-alt: 0 40px 0 40px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .header-title {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Header */
+        .app-header {
+            background: var(--navy);
+            color: var(--card-bg);
+            padding: 2.5rem 2rem;
+            position: relative;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--card-bg);
+            text-transform: uppercase;
+        }
+
+        .header-title i {
+            color: var(--gold);
+        }
+
+        .sub {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* Toolbar (Search & Filter) */
+        .toolbar {
+            max-width: 1400px;
+            margin: -1.8rem auto 2rem;
+            padding: 1rem 2rem;
+            background: var(--card-bg);
+            border-radius: var(--radius-asym);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.5rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            flex: 2;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            background: var(--bg-color);
+            border-radius: 30px;
+            padding: 12px 20px;
+            gap: 12px;
+            border: 1px solid transparent;
+            transition: 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--gold);
+            background: var(--card-bg);
+            box-shadow: 0 0 0 4px var(--gold-fade);
+        }
+
+        .search-box i {
+            color: var(--navy);
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            font-weight: 500;
+            font-family: inherit;
+            color: var(--text-main);
+        }
+        
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex: 3;
+            justify-content: flex-end;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-btn.active {
+            background: var(--navy);
+            color: var(--card-bg);
+            border-color: var(--navy);
+            box-shadow: 0 4px 15px rgba(11, 37, 69, 0.2);
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+
+        /* Algorithm List Sidebar */
+        .alg-list {
+            flex: 1.2;
+            min-width: 300px;
+            background: var(--card-bg);
+            border-radius: var(--radius-asym-alt);
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem 0;
+            height: fit-content;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Custom Scrollbar for list */
+        .alg-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .alg-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .alg-list::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 10px;
+        }
+        .alg-list:hover::-webkit-scrollbar-thumb {
+            background: var(--gold-light);
+        }
+
+        .alg-item {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--navy);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .alg-item:last-child {
+            border-bottom: none;
+        }
+
+        .alg-item:hover {
+            background: var(--bg-color);
+            padding-left: 2.5rem; /* Slight shift effect */
+        }
+
+        .alg-item.active {
+            background: var(--gold-fade);
+            border-left-color: var(--gold);
+            color: var(--navy);
+            padding-left: 2.5rem;
+        }
+
+        .paradigm-badge {
+            font-size: 0.7rem;
+            background: var(--bg-color);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .alg-item.active .paradigm-badge {
+            background: var(--card-bg);
+            color: var(--gold);
+            border-color: var(--gold-fade);
+        }
+
+        /* Detail Panel */
+        .detail-panel {
+            flex: 3;
+            min-width: 400px;
+            background: var(--card-bg);
+            border-radius: var(--radius-asym);
+            box-shadow: var(--shadow-md);
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+        
+        .detail-panel:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .detail-header-wrapper {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .detail-title {
+            font-size: 2.2rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-title i {
+            color: var(--gold);
+        }
+
+        .detail-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .complexity-box {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .comp-item {
+            background: var(--navy);
+            color: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .comp-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-muted);
+            font-family: inherit;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--navy);
+        }
+
+        .tab-btn.active::after {
+            transform: scaleX(1);
+        }
+
+        .tab-btn:hover {
+            color: var(--navy);
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .tab-content.active-tab {
+            display: block;
+        }
+
+        @keyframes slideFadeUp {
+            from { opacity: 0; transform: translateY(15px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        pre {
+            background: #1e1e1e; /* Sleek dark code block */
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            font-family: 'Courier New', Courier, monospace;
+            border-left: 4px solid var(--gold);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Visualization Canvas Area */
+        .visualization-wrapper {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px dashed var(--border-color);
+        }
+
+        canvas {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+        }
+
+        /* Practice Area */
+        .practice-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--navy);
+            color: var(--card-bg);
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .practice-link:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quiz-area {
+            margin-top: 2rem;
+            background: var(--bg-color);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--navy);
+        }
+        
+        .quiz-area strong {
+            color: var(--navy);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            border: none;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            font-family: inherit;
+        }
+
+        .btn-gold:hover {
+            background: #b4914c;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .detail-panel { padding: 2rem; min-width: 100%; }
+            .toolbar { margin: -1rem 1rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-header">
+    <div class="header-content">
+        <div class="header-title">
+            <i class="fas fa-layer-group"></i> 
+            Algorithm Encyclopedia
+        </div>
+        <div class="sub">Comprehensive Knowledge Base • Visualization • Code Implementations</div>
+    </div>
+</div>
+
+<div class="toolbar">
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search algorithms, paradigms...">
+    </div>
+    <div class="filter-group" id="filterGroup">
+        <button data-filter="all" class="filter-btn active">All</button>
+        <button data-filter="Divide & Conquer" class="filter-btn">Divide & Conquer</button>
+        <button data-filter="Greedy" class="filter-btn">Greedy</button>
+        <button data-filter="Dynamic Programming" class="filter-btn">DP</button>
+        <button data-filter="Graph" class="filter-btn">Graph</button>
+        <button data-filter="Sorting" class="filter-btn">Sorting</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="alg-list" id="algListContainer"></div>
+    <div class="detail-panel" id="detailPanel">
+        <!-- dynamic content -->
+        <div style="text-align:center; padding: 4rem; color: var(--text-muted);">
+            <i class="fas fa-mouse-pointer" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
+            <h2 style="color: var(--navy);">Select an Algorithm</h2>
+            <p>Choose from the list to explore interactive visualizations and implementations.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Algorithm Encyclopedia. Powered by deep knowledge and elegant design.
+</footer>
+
+<script>
+    // ========================= DATA: 30+ algorithms =========================
+    const algorithms = [
+        { id: 0, name: "Binary Search", paradigm: "Divide & Conquer", complexity: { best: "Ω(1)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Efficient search in sorted array by repeatedly dividing search interval in half.", 
+          pseudo: "function binarySearch(arr, target):\n  left=0, right=len(arr)-1\n  while left<=right:\n    mid = (left+right)//2\n    if arr[mid]==target: return mid\n    elif arr[mid]<target: left=mid+1\n    else: right=mid-1\n  return -1", 
+          visualType: "binary", practice: "https://leetcode.com/problems/binary-search/" },
+        { id: 1, name: "Merge Sort", paradigm: "Divide & Conquer", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Divide array into halves, sort recursively, merge.", 
+          pseudo: "mergeSort(arr):\n  if len<=1 return arr\n  mid=len//2\n  left=mergeSort(arr[:mid])\n  right=mergeSort(arr[mid:])\n  return merge(left,right)", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
+        { id: 2, name: "Quick Sort", paradigm: "Divide & Conquer", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n²)" }, description: "Pick pivot, partition, recursively sort.", 
+          pseudo: "quickSort(arr,low,high):\n  if low<high: pi=partition(...); quickSort(low,pi-1); quickSort(pi+1,high)", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
+        { id: 3, name: "Dijkstra's Algorithm", paradigm: "Graph", complexity: { best: "Ω((V+E)log V)", avg: "Θ((V+E)log V)", worst: "O((V+E)log V)" }, description: "Finds shortest paths from source to all nodes in weighted graph.", 
+          pseudo: "Dijkstra(G,source):\n  dist[source]=0, PQ.push((0,source))\n  while PQ: u=pop; for v in adj: relax", visualType: "graph", practice: "https://leetcode.com/problems/network-delay-time/" },
+        { id: 4, name: "Bellman-Ford", paradigm: "Graph", complexity: { best: "Ω(VE)", avg: "Θ(VE)", worst: "O(VE)" }, description: "Shortest paths with negative edges, detects negative cycles.", pseudo: "repeat |V|-1 times: relax all edges;\n check negative cycle", visualType: "graph", practice: "https://leetcode.com/problems/cheapest-flights-within-k-stops/" },
+        { id: 5, name: "Floyd-Warshall", paradigm: "Dynamic Programming", complexity: { best: "Ω(V³)", avg: "Θ(V³)", worst: "O(V³)" }, description: "All-pairs shortest paths using DP", pseudo: "for k in range(V): for i in range(V): for j: dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j])", visualType: "graph", practice: "https://practice.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1" },
+        { id: 6, name: "Knapsack 0/1", paradigm: "Dynamic Programming", complexity: { best: "Ω(nW)", avg: "Θ(nW)", worst: "O(nW)" }, description: "Maximize value with weight capacity.", pseudo: "dp[i][w] = max(dp[i-1][w], val[i-1] + dp[i-1][w-wt[i-1]])", visualType: "dp", practice: "https://leetcode.com/problems/partition-equal-subset-sum/" },
+        { id: 7, name: "Fractional Knapsack", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Take items by value/weight ratio.", pseudo: "sort by ratio; for each item take fraction if needed.", visualType: "greedy", practice: "https://www.geeksforgeeks.org/fractional-knapsack-problem/" },
+        { id: 8, name: "Prim's Algorithm", paradigm: "Greedy", complexity: { best: "Ω(E log V)", avg: "Θ(E log V)", worst: "O(E log V)" }, description: "Minimum spanning tree using priority queue.", pseudo: "start from arbitrary node, add min edge to MST", visualType: "graph", practice: "https://leetcode.com/problems/min-cost-to-connect-all-points/" },
+        { id: 9, name: "Kruskal's Algorithm", paradigm: "Greedy", complexity: { best: "Ω(E log E)", avg: "Θ(E log E)", worst: "O(E log E)" }, description: "MST using union-find.", pseudo: "sort edges; if safe add to MST", visualType: "graph", practice: "https://leetcode.com/problems/connecting-cities-with-minimum-cost/" },
+        { id: 10, name: "BFS (Graph)", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Traversal level by level.", pseudo: "queue start; while queue: pop, visit neighbors", visualType: "graph", practice: "https://leetcode.com/problems/number-of-islands/" },
+        { id: 11, name: "DFS (Graph)", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Depth-first traversal", pseudo: "recursive: mark, for neighbor recurse", visualType: "graph", practice: "https://leetcode.com/problems/clone-graph/" },
+        { id: 12, name: "Topological Sort", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Ordering of DAG", pseudo: "Kahn's algorithm: indegree zero nodes", visualType: "graph", practice: "https://leetcode.com/problems/course-schedule-ii/" },
+        { id: 13, name: "KMP Pattern Matching", paradigm: "Divide & Conquer", complexity: { best: "Ω(n+m)", avg: "Θ(n+m)", worst: "O(n+m)" }, description: "Efficient substring search", pseudo: "build LPS array, then two-pointer scan", visualType: "string", practice: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" },
+        { id: 14, name: "Longest Common Subsequence", paradigm: "Dynamic Programming", complexity: { best: "Ω(mn)", avg: "Θ(mn)", worst: "O(mn)" }, description: "LCS length DP", pseudo: "dp[i][j] = dp[i-1][j-1]+1 if match else max(dp[i-1][j], dp[i][j-1])", visualType: "dp", practice: "https://leetcode.com/problems/longest-common-subsequence/" },
+        { id: 15, name: "Heap Sort", paradigm: "Sorting", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "In-place sort using heap", pseudo: "buildHeap, then extractMax repeatedly", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
+        { id: 16, name: "Counting Sort", paradigm: "Sorting", complexity: { best: "Ω(n+k)", avg: "Θ(n+k)", worst: "O(n+k)" }, description: "Non-comparison integer sort", pseudo: "count frequencies → cumulative → output", visualType: "sort", practice: "https://www.geeksforgeeks.org/counting-sort/" },
+        { id: 17, name: "Rod Cutting", paradigm: "Dynamic Programming", complexity: { best: "Ω(n²)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Maximum profit cutting rod", pseudo: "dp[i]=max(price[j]+dp[i-j-1])", visualType: "dp", practice: "https://www.geeksforgeeks.org/cutting-a-rod-dp-13/" },
+        { id: 18, name: "Huffman Coding", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Optimal prefix codes", pseudo: "build min-heap; combine two smallest", visualType: "greedy", practice: "https://leetcode.com/problems/minimum-cost-to-connect-sticks/" },
+        { id: 19, name: "Rabin-Karp", paradigm: "Divide & Conquer", complexity: { best: "Ω(n+m)", avg: "Θ(n+m)", worst: "O(nm)" }, description: "Rolling hash string matching", pseudo: "compute hash, slide window", visualType: "string", practice: "https://leetcode.com/problems/repeated-string-match/" },
+        { id: 20, name: "Insertion Sort", paradigm: "Sorting", complexity: { best: "Ω(n)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Build sorted array one element at a time", pseudo: "for i=1..n-1: key=arr[i]; j=i-1; while j>=0 and arr[j]>key: swap", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
+        { id: 21, name: "Selection Sort", paradigm: "Sorting", complexity: { best: "Ω(n²)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Repeatedly select minimum", pseudo: "for i in range(n): minIdx=i; for j=i+1..n: if arr[j]<arr[minIdx] update; swap", visualType: "sort", practice: "https://www.geeksforgeeks.org/selection-sort/" },
+        { id: 22, name: "Activity Selection", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Maximum non-overlapping intervals", pseudo: "sort by finish, greedily pick", visualType: "greedy", practice: "https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/" },
+        { id: 23, name: "Matrix Chain Multiplication", paradigm: "Dynamic Programming", complexity: { best: "Ω(n³)", avg: "Θ(n³)", worst: "O(n³)" }, description: "Optimal parenthesization", pseudo: "dp[i][j]=min over k (dp[i][k]+dp[k+1][j]+dim[i-1]*dim[k]*dim[j])", visualType: "dp", practice: "https://leetcode.com/problems/minimum-cost-to-merge-stones/" },
+        { id: 24, name: "Bubble Sort", paradigm: "Sorting", complexity: { best: "Ω(n)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Repeatedly swapping adjacent", pseudo: "for i 0..n-1 for j 0..n-i-2 if arr[j]>arr[j+1] swap", visualType: "sort", practice: "https://www.geeksforgeeks.org/bubble-sort/" },
+        { id: 25, name: "Ford-Fulkerson", paradigm: "Graph", complexity: { best: "Ω(E*f)", avg: "Θ(E*f)", worst: "O(E*f)" }, description: "Find maximum flow in network", pseudo: "DFS augmenting path while possible", visualType: "graph", practice: "https://leetcode.com/problems/maximum-flow/" },
+        { id: 26, name: "Edmonds-Karp", paradigm: "Graph", complexity: { best: "Ω(VE²)", avg: "Θ(VE²)", worst: "O(VE²)" }, description: "Max flow using BFS", pseudo: "BFS to find augmenting path", visualType: "graph", practice: "https://www.geeksforgeeks.org/ford-fulkerson-algorithm/" },
+        { id: 27, name: "Segment Tree", paradigm: "Divide & Conquer", complexity: { best: "Ω(log n)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Range queries & updates", pseudo: "build tree, query(l,r), point update", visualType: "tree", practice: "https://leetcode.com/problems/range-sum-query-mutable/" },
+        { id: 28, name: "Fenwick Tree (BIT)", paradigm: "Divide & Conquer", complexity: { best: "Ω(log n)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Prefix sums efficiently", pseudo: "BIT update & query", visualType: "tree", practice: "https://leetcode.com/problems/range-sum-query-mutable/" },
+        { id: 29, name: "Trie (Prefix Tree)", paradigm: "Divide & Conquer", complexity: { best: "Ω(L)", avg: "Θ(L)", worst: "O(L)" }, description: "String search autocomplete", pseudo: "insert, search, startsWith", visualType: "tree", practice: "https://leetcode.com/problems/implement-trie-prefix-tree/" }
+    ];
+    
+    // fill languages implementations & more.
+    function getCode(algName) {
+        const funcName = algName.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        const className = algName.replace(/[^a-zA-Z0-9]/g, "");
+        return {
+            python: `def ${funcName}(data):\n    """\n    Implementation for ${algName}\n    """\n    # Refer to pseudocode for details\n    pass\n\n# Example usage:\n# result = ${funcName}([1, 2, 3])`,
+            java: `public class ${className} {\n    public static void main(String[] args) {\n        // ${algName} implementation\n        System.out.println("Executing ${algName}...");\n    }\n}`,
+            cpp: `#include <iostream>\nusing namespace std;\n\n// ${algName} implementation\nint main() {\n    cout << "Executing ${algName}..." << endl;\n    return 0;\n}`
+        };
+    }
+
+    // interactive visual simulation
+    let currentAlg = null;
+
+    function renderVisualization(alg, canvasId) {
+        const canvas = document.getElementById(canvasId);
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = Math.min(600, document.querySelector('.detail-panel').clientWidth - 100);
+        canvas.height = 200;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        
+        ctx.font = "600 14px 'Plus Jakarta Sans'";
+        ctx.fillStyle = "#0b2545"; // Navy
+        
+        // Helper drawing
+        const drawRoundedRect = (x, y, w, h, r, color) => {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.fill();
+        }
+
+        if(alg.visualType === "binary") {
+            ctx.fillText("Concept: Search Space Reduction", 20, 30);
+            for(let i=0;i<10;i++) { 
+                drawRoundedRect(20+i*40, 70, 32, 45, 6, "#e5e7eb"); 
+                ctx.fillStyle="#0b2545"; 
+                ctx.fillText(i*2, 30+i*40, 98); 
+            }
+            // Highlight
+            drawRoundedRect(20+4*40, 70, 32, 45, 6, "#c5a059"); 
+            ctx.fillStyle="#ffffff"; 
+            ctx.fillText(8, 30+4*40, 98);
+            
+            ctx.fillStyle="#0b2545";
+            ctx.fillText("Midpoint evaluated & matched", 20, 160);
+            
+        } else if(alg.visualType === "sort") {
+            let bars = [60,110,40,140,80,50,120,70];
+            ctx.fillText("Concept: Element Rearrangement", 20, 30);
+            for(let i=0;i<bars.length;i++){ 
+                drawRoundedRect(40+i*55, 170-bars[i], 40, bars[i], 4, i%3===0 ? "#c5a059" : "#0b2545"); 
+                ctx.fillStyle="#ffffff"; 
+                if (bars[i]>50) ctx.fillText(bars[i], 50+i*55, 160); 
+            }
+        } else if(alg.visualType === "graph") {
+            ctx.fillText("Concept: Node Traversal & Shortest Path", 20, 30);
+            
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#e5e7eb";
+            ctx.beginPath(); ctx.moveTo(120,100); ctx.lineTo(250,60); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(120,100); ctx.lineTo(250,150); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(250,60); ctx.lineTo(380,100); ctx.stroke();
+            
+            ctx.strokeStyle = "#c5a059"; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.moveTo(250,150); ctx.lineTo(380,100); ctx.stroke();
+            
+            const drawNode = (x,y,label,color) => {
+                ctx.beginPath(); ctx.arc(x,y,22,0,2*Math.PI); 
+                ctx.fillStyle = color; ctx.fill();
+                ctx.fillStyle = "white"; ctx.fillText(label, x-4, y+5);
+            };
+            
+            drawNode(120,100,"A","#0b2545");
+            drawNode(250,60,"B","#0b2545");
+            drawNode(250,150,"C","#c5a059");
+            drawNode(380,100,"D","#0b2545");
+
+        } else {
+            ctx.fillText("Concept Illustration",20,30);
+            drawRoundedRect(100, 70, 200, 80, 10, "#0b2545");
+            ctx.fillStyle="white"; 
+            ctx.fillText("Abstract State Representation", 115, 115);
+        }
+    }
+
+    function updateDetailPanel(alg) {
+        const panel = document.getElementById('detailPanel');
+        const codePack = getCode(alg.name);
+        panel.innerHTML = `
+            <div class="detail-header-wrapper">
+                <h2 class="detail-title"><i class="fas fa-cube"></i> ${alg.name}</h2>
+                <span class="paradigm-badge" style="background:var(--navy); color:white; border:none; display:inline-block; margin-top:8px;">
+                    ${alg.paradigm}
+                </span>
+                <p class="detail-desc" style="margin-top: 15px;">${alg.description}</p>
+            </div>
+            
+            <div class="complexity-box">
+                <div class="comp-item"><span class="comp-label">Best Case</span> ${alg.complexity.best}</div>
+                <div class="comp-item"><span class="comp-label">Average Case</span> ${alg.complexity.avg}</div>
+                <div class="comp-item"><span class="comp-label">Worst Case</span> ${alg.complexity.worst}</div>
+            </div>
+            
+            <div class="tabs" id="tabsContainer">
+                <button class="tab-btn active" data-tab="pseudo"><i class="fas fa-align-left"></i> Pseudocode</button>
+                <button class="tab-btn" data-tab="python"><i class="fab fa-python"></i> Python</button>
+                <button class="tab-btn" data-tab="java"><i class="fab fa-java"></i> Java</button>
+                <button class="tab-btn" data-tab="cpp"><i class="fas fa-code"></i> C++</button>
+                <button class="tab-btn" data-tab="visual"><i class="fas fa-project-diagram"></i> Concept</button>
+                <button class="tab-btn" data-tab="practice"><i class="fas fa-laptop-code"></i> Practice</button>
+            </div>
+            
+            <div id="pseudo" class="tab-content active-tab"><pre>${alg.pseudo}</pre></div>
+            <div id="python" class="tab-content"><pre>${codePack.python}</pre></div>
+            <div id="java" class="tab-content"><pre>${codePack.java}</pre></div>
+            <div id="cpp" class="tab-content"><pre>${codePack.cpp}</pre></div>
+            
+            <div id="visual" class="tab-content">
+                <div class="visualization-wrapper">
+                    <canvas id="visCanvas"></canvas>
+                </div>
+            </div>
+            
+            <div id="practice" class="tab-content">
+                <p style="margin-bottom: 20px; font-size: 1.1rem;">Ready to test your skills? Try solving a related problem on LeetCode or GeeksForGeeks.</p>
+                <a href="${alg.practice}" target="_blank" class="practice-link">
+                    Launch Practice Problem <i class="fas fa-external-link-alt"></i>
+                </a>
+                
+                <div class="quiz-area">
+                    <strong><i class="fas fa-question-circle"></i> Quick Knowledge Check</strong> 
+                    What is the worst-case time complexity of ${alg.name}?
+                    <br/>
+                    <button id="quizBtn" class="btn-gold">Reveal Answer</button>
+                    <p id="quizAns" style="margin-top:15px; font-weight: 600; color: var(--navy); display:none;"></p>
+                </div>
+            </div>
+        `;
+        
+        // Attach tab events
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active-tab'));
+                document.getElementById(btn.dataset.tab).classList.add('active-tab');
+                if(btn.dataset.tab === 'visual') renderVisualization(alg, 'visCanvas');
+            });
+        });
+        
+        // Quiz logic
+        const qBtn = document.getElementById('quizBtn');
+        if(qBtn) {
+            qBtn.onclick = () => {
+                const ans = document.getElementById('quizAns');
+                ans.innerHTML = `<i class="fas fa-check-circle" style="color: green;"></i> The worst-case complexity is <strong>${alg.complexity.worst}</strong>.`;
+                ans.style.display = "block";
+                qBtn.style.display = "none";
+            };
+        }
+        
+        // Initial render for canvas if tab is active (unlikely by default, but safe)
+        renderVisualization(alg, 'visCanvas');
+    }
+
+    // Render list + filter + search
+    let activeFilter = "all";
+    let searchTerm = "";
+    
+    function renderList() {
+        const container = document.getElementById('algListContainer');
+        let filtered = algorithms.filter(alg => {
+            if(activeFilter !== "all" && alg.paradigm !== activeFilter) return false;
+            if(searchTerm && !alg.name.toLowerCase().includes(searchTerm) && !alg.paradigm.toLowerCase().includes(searchTerm)) return false;
+            return true;
+        });
+        
+        if(filtered.length === 0) {
+            container.innerHTML = `<div style="padding:2rem; text-align:center; color:var(--text-muted);">No algorithms match your criteria. <i class="fas fa-frown-open"></i></div>`;
+        } else {
+            container.innerHTML = filtered.map(alg => `
+                <div class="alg-item" data-id="${alg.id}">
+                    <span>${alg.name}</span>
+                    <span class="paradigm-badge">${alg.paradigm}</span>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.alg-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    const id = parseInt(el.dataset.id);
+                    const algFind = algorithms.find(a=>a.id===id);
+                    if(algFind) { 
+                        currentAlg = algFind; 
+                        updateDetailPanel(algFind); 
+                        document.querySelectorAll('.alg-item').forEach(i=>i.classList.remove('active'));
+                        el.classList.add('active');
+                        
+                        // Scroll top on mobile
+                        if(window.innerWidth <= 900) {
+                            document.getElementById('detailPanel').scrollIntoView({behavior: "smooth"});
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Maintain active state in list
+        if(currentAlg && algorithms.find(a=>a.id===currentAlg.id)) {
+            document.querySelectorAll('.alg-item').forEach(el=>{ 
+                if(parseInt(el.dataset.id) === currentAlg.id) el.classList.add('active'); 
+            });
+        }
+    }
+    
+    document.getElementById('searchInput').addEventListener('input', e => { 
+        searchTerm = e.target.value.toLowerCase(); 
+        renderList(); 
+    });
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.filter;
+            renderList();
+        });
+    });
+    
+    // Default load first algorithm
+    currentAlg = algorithms[0];
+    renderList();
+    updateDetailPanel(algorithms[0]);
+</script>
+</body>
+</html>
