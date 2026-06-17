@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Algorithm Encyclopedia | Interactive Visualizations & Code</title>
-    <!-- Google Fonts for elegant typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free icons) -->
+    <title>Algorithm Encyclopedia | White Metallic Edition</title>
+    <!-- Google Fonts: Adding 800 and 900 weights for maximum boldness -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --navy: #0b2545;
-            --navy-light: #133a6b;
-            --gold: #c5a059;
-            --gold-light: #d6b77a;
-            --gold-fade: rgba(197, 160, 89, 0.15);
-            --bg-color: #f4f6f9;
-            --card-bg: #ffffff;
-            --text-main: #2b2b2b;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 30px -10px rgba(11, 37, 69, 0.15);
+            /* High-Contrast Bold Metallic Gradients */
+            --metal-gold: linear-gradient(135deg, #a67c00, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --metal-white: linear-gradient(135deg, #f8f9fa, #e9ecef, #ffffff, #dee2e6, #f8f9fa);
+            --metal-blue: linear-gradient(135deg, #093028, #237A57); /* Wait, that's green. Let's do real blue: */
+            --metal-blue: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Deep metallic blue */
+            --metal-blue-bright: linear-gradient(135deg, #005c97, #363795); /* Bright metallic blue */
             
-            /* Signature SNPSU Shape */
+            /* Glassmorphism Variables for White Background */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-blur: blur(25px);
+            
+            /* Solid Colors */
+            --text-main: #0f172a; /* Dark blue/slate for readability */
+            --text-muted: #64748b;
+            --accent-gold: #b38728;
+            --accent-blue: #203a43;
+            
             --radius-asym: 40px 0 40px 0;
             --radius-asym-alt: 0 40px 0 40px;
         }
@@ -37,23 +40,46 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            
+            /* Pure White Backdrop */
+            background: #ffffff;
+            font-weight: 600; /* Bold baseline */
         }
 
         h1, h2, h3, h4, .header-title {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 900; /* Maximum Boldness */
         }
 
-        /* Header */
+        /* Metallic Text Utilities */
+        .text-metal-gold {
+            background: var(--metal-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            display: inline-block;
+        }
+        .text-metal-blue {
+            background: var(--metal-blue-bright);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Header - Metallic Blue */
         .app-header {
-            background: var(--navy);
-            color: var(--card-bg);
+            background: var(--metal-blue);
             padding: 2.5rem 2rem;
             position: relative;
-            border-bottom: 4px solid var(--gold);
+            border-bottom: 4px solid transparent;
+            border-image: var(--metal-gold) 1; /* Metallic gold border */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            color: #ffffff;
         }
 
         .header-content {
@@ -62,43 +88,38 @@
         }
 
         .header-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-size: 3rem;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
             gap: 15px;
-            color: var(--card-bg);
             text-transform: uppercase;
         }
 
-        .header-title i {
-            color: var(--gold);
-        }
-
         .sub {
-            color: rgba(255, 255, 255, 0.8);
+            color: #cbd5e1;
             margin-top: 0.8rem;
-            font-size: 1.1rem;
-            font-weight: 400;
+            font-size: 1.2rem;
+            font-weight: 600;
             letter-spacing: 0.5px;
         }
 
-        /* Toolbar (Search & Filter) */
+        /* Toolbar (Search & Filter) - Metallic White */
         .toolbar {
             max-width: 1400px;
             margin: -1.8rem auto 2rem;
             padding: 1rem 2rem;
-            background: var(--card-bg);
+            background: var(--metal-white);
             border-radius: var(--radius-asym);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 1.5rem;
-            border: 1px solid var(--border-color);
+            border: 2px solid #ffffff;
             position: relative;
             z-index: 10;
+            animation: fadeIn 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
         .search-box {
@@ -106,74 +127,78 @@
             min-width: 250px;
             display: flex;
             align-items: center;
-            background: var(--bg-color);
+            background: #ffffff;
             border-radius: 30px;
-            padding: 12px 20px;
+            padding: 14px 20px;
             gap: 12px;
-            border: 1px solid transparent;
+            border: 2px solid var(--glass-border);
             transition: 0.3s ease;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .search-box:focus-within {
-            border-color: var(--gold);
-            background: var(--card-bg);
-            box-shadow: 0 0 0 4px var(--gold-fade);
+            border-image: var(--metal-blue-bright) 1;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(0, 92, 151, 0.2), inset 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .search-box i {
-            color: var(--navy);
-            font-size: 1.1rem;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
         }
 
         .search-box input {
             border: none;
             background: transparent;
             width: 100%;
-            font-size: 1rem;
+            font-size: 1.1rem;
             outline: none;
-            font-weight: 500;
+            font-weight: 700;
             font-family: inherit;
             color: var(--text-main);
         }
         
         .search-box input::placeholder {
-            color: var(--text-muted);
+            color: #94a3b8;
         }
 
         .filter-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             flex: 3;
             justify-content: flex-end;
         }
 
         .filter-btn {
-            background: transparent;
-            border: 2px solid var(--border-color);
-            padding: 8px 20px;
+            background: #ffffff;
+            border: 2px solid var(--glass-border);
+            padding: 10px 24px;
             border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-weight: 800;
+            font-size: 0.9rem;
             font-family: 'Plus Jakarta Sans', sans-serif;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: var(--navy);
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .filter-btn.active {
-            background: var(--navy);
-            color: var(--card-bg);
-            border-color: var(--navy);
-            box-shadow: 0 4px 15px rgba(11, 37, 69, 0.2);
+            background: var(--metal-gold);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            text-shadow: none;
         }
 
         .filter-btn:hover:not(.active) {
-            border-color: var(--gold);
-            color: var(--gold);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 92, 151, 0.1);
         }
 
         /* Main Container */
@@ -186,193 +211,211 @@
             padding: 0 2rem;
         }
 
-        /* Algorithm List Sidebar */
+        /* Algorithm List Sidebar - Metallic White */
         .alg-list {
             flex: 1.2;
             min-width: 300px;
-            background: var(--card-bg);
+            background: var(--metal-white);
             border-radius: var(--radius-asym-alt);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.08);
             padding: 1.5rem 0;
             height: fit-content;
             max-height: 80vh;
             overflow-y: auto;
-            border: 1px solid var(--border-color);
+            border: 2px solid #ffffff;
+            border-right: 2px solid rgba(212, 175, 55, 0.3);
+            animation: slideRight 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        /* Custom Scrollbar for list */
-        .alg-list::-webkit-scrollbar {
-            width: 6px;
-        }
-        .alg-list::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .alg-list::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 10px;
-        }
-        .alg-list:hover::-webkit-scrollbar-thumb {
-            background: var(--gold-light);
-        }
+        .alg-list::-webkit-scrollbar { width: 6px; }
+        .alg-list::-webkit-scrollbar-track { background: transparent; }
+        .alg-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        .alg-list:hover::-webkit-scrollbar-thumb { background: var(--accent-blue); }
 
         .alg-item {
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             cursor: pointer;
-            border-left: 4px solid transparent;
-            transition: all 0.2s ease;
-            font-weight: 600;
+            border-left: 6px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 800;
+            font-size: 1.1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: var(--navy);
-            border-bottom: 1px solid #f0f0f0;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
         }
 
-        .alg-item:last-child {
-            border-bottom: none;
+        .alg-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--metal-blue-bright);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
+
+        .alg-item > * { position: relative; z-index: 1; }
 
         .alg-item:hover {
-            background: var(--bg-color);
-            padding-left: 2.5rem; /* Slight shift effect */
+            padding-left: 2.5rem;
+            color: var(--accent-blue);
+            background: rgba(0,0,0,0.02);
         }
 
         .alg-item.active {
-            background: var(--gold-fade);
-            border-left-color: var(--gold);
-            color: var(--navy);
             padding-left: 2.5rem;
+            border-left-color: var(--accent-gold);
+            color: #ffffff;
+            text-shadow: none;
+        }
+        
+        .alg-item.active::before {
+            opacity: 1; /* Make the whole background metallic blue */
         }
 
         .paradigm-badge {
-            font-size: 0.7rem;
-            background: var(--bg-color);
-            color: var(--text-muted);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 700;
+            font-size: 0.75rem;
+            background: #ffffff;
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 5px; 
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--border-color);
+            letter-spacing: 1px;
+            border: 1px solid var(--glass-border);
             transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .alg-item.active .paradigm-badge {
-            background: var(--card-bg);
-            color: var(--gold);
-            border-color: var(--gold-fade);
+            background: var(--metal-gold);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Detail Panel */
+        /* Detail Panel - Metallic White */
         .detail-panel {
             flex: 3;
             min-width: 400px;
-            background: var(--card-bg);
+            background: var(--metal-white);
             border-radius: var(--radius-asym);
-            box-shadow: var(--shadow-md);
-            padding: 3rem;
-            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.1);
+            padding: 3.5rem;
+            border: 2px solid #ffffff;
+            border-top: 2px solid rgba(212, 175, 55, 0.4);
+            border-left: 2px solid rgba(212, 175, 55, 0.4);
             position: relative;
             transition: all 0.4s ease;
+            animation: slideLeft 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         
         .detail-panel:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-4px);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px 0 rgba(0, 0, 0, 0.15);
         }
 
         .detail-header-wrapper {
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--bg-color);
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
             padding-bottom: 1.5rem;
         }
 
         .detail-title {
-            font-size: 2.2rem;
-            color: var(--navy);
+            font-size: 3.2rem; /* Massive bold title */
             margin-bottom: 0.5rem;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-        
-        .detail-title i {
-            color: var(--gold);
+            gap: 20px;
+            color: var(--text-main);
         }
 
         .detail-desc {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.7;
+            font-size: 1.2rem;
+            color: #475569;
+            line-height: 1.8;
+            font-weight: 600;
         }
 
         .complexity-box {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .comp-item {
-            background: var(--navy);
-            color: var(--card-bg);
-            padding: 10px 20px;
+            background: #ffffff;
+            color: var(--text-main);
+            padding: 15px 25px;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 900;
+            font-size: 1.1rem;
             display: flex;
             flex-direction: column;
-            border-bottom: 3px solid var(--gold);
+            border: 2px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .comp-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 4px;
+            background: var(--metal-blue-bright);
         }
         
         .comp-label {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-            margin-bottom: 2px;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
         }
 
         /* Tabs */
         .tabs {
             display: flex;
             gap: 15px;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
         }
 
         .tab-btn {
             background: none;
             border: none;
-            padding: 12px 24px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            padding: 15px 30px;
+            font-weight: 900;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             color: var(--text-muted);
             font-family: inherit;
             position: relative;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .tab-btn::after {
             content: '';
             position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--gold);
+            bottom: -2px; left: 0; width: 100%; height: 4px;
+            background: var(--metal-blue-bright);
             transform: scaleX(0);
             transition: transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 92, 151, 0.4);
         }
 
         .tab-btn.active {
-            color: var(--navy);
+            color: var(--accent-blue);
         }
 
         .tab-btn.active::after {
@@ -380,7 +423,7 @@
         }
 
         .tab-btn:hover {
-            color: var(--navy);
+            color: var(--accent-blue);
         }
 
         .tab-content {
@@ -392,104 +435,139 @@
             display: block;
         }
 
-        @keyframes slideFadeUp {
-            from { opacity: 0; transform: translateY(15px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
         pre {
-            background: #1e1e1e; /* Sleek dark code block */
-            color: #d4d4d4;
-            padding: 1.5rem;
-            border-radius: 12px;
+            background: var(--metal-blue);
+            color: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
             overflow-x: auto;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-family: 'Courier New', Courier, monospace;
-            border-left: 4px solid var(--gold);
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            border: 2px solid rgba(0,0,0,0.1);
+            border-left: 6px solid var(--accent-gold);
+            box-shadow: inset 0 5px 20px rgba(0,0,0,0.5);
+            font-weight: 700;
         }
 
         /* Visualization Canvas Area */
         .visualization-wrapper {
-            background: var(--bg-color);
-            padding: 2rem;
-            border-radius: 20px;
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
             text-align: center;
-            border: 2px dashed var(--border-color);
+            border: 2px solid rgba(0,0,0,0.05);
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.05);
         }
 
         canvas {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
+            background: var(--metal-blue);
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             margin: 0 auto;
             display: block;
             max-width: 100%;
+            border: 2px solid var(--accent-gold);
         }
 
         /* Practice Area */
         .practice-link {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: var(--navy);
-            color: var(--card-bg);
-            padding: 12px 28px;
-            border-radius: 50px;
+            gap: 12px;
+            background: var(--metal-blue-bright);
+            color: #ffffff;
+            padding: 15px 35px;
+            border-radius: 5px; /* Sharper */
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 8px 20px rgba(0, 92, 151, 0.3);
+            border: 2px solid transparent;
         }
 
         .practice-link:hover {
-            background: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            background: var(--metal-gold);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
         }
 
         .quiz-area {
-            margin-top: 2rem;
-            background: var(--bg-color);
-            padding: 1.5rem 2rem;
-            border-radius: 16px;
-            border-left: 4px solid var(--navy);
+            margin-top: 2.5rem;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 6px solid var(--accent-gold);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .quiz-area strong {
-            color: var(--navy);
             display: block;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--text-main);
         }
 
         .btn-gold {
-            background: var(--gold);
+            background: var(--metal-gold);
             border: none;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 5px; /* Sharper */
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 15px;
+            margin-top: 20px;
             font-family: inherit;
+            box-shadow: 0 8px 20px rgba(212,175,55,0.4);
         }
 
         .btn-gold:hover {
-            background: #b4914c;
-            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(212,175,55,0.6);
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            font-weight: 500;
+            padding: 2.5rem;
+            font-size: 1rem;
+            color: #ffffff;
+            background: var(--metal-blue);
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideFadeUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
 
         @media (max-width: 900px) {
@@ -504,8 +582,8 @@
 <div class="app-header">
     <div class="header-content">
         <div class="header-title">
-            <i class="fas fa-layer-group"></i> 
-            Algorithm Encyclopedia
+            <i class="fas fa-layer-group text-metal-gold"></i> 
+            <span>Algorithm Encyclopedia</span>
         </div>
         <div class="sub">Comprehensive Knowledge Base • Visualization • Code Implementations</div>
     </div>
@@ -530,20 +608,20 @@
     <div class="alg-list" id="algListContainer"></div>
     <div class="detail-panel" id="detailPanel">
         <!-- dynamic content -->
-        <div style="text-align:center; padding: 4rem; color: var(--text-muted);">
-            <i class="fas fa-mouse-pointer" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
-            <h2 style="color: var(--navy);">Select an Algorithm</h2>
-            <p>Choose from the list to explore interactive visualizations and implementations.</p>
+        <div style="text-align:center; padding: 4rem; color: var(--text-main);">
+            <i class="fas fa-fingerprint text-metal-blue" style="font-size: 5rem; margin-bottom: 2rem; filter: drop-shadow(0 0 15px rgba(0, 92, 151, 0.4));"></i>
+            <h2 class="text-metal-blue" style="font-size: 3rem;">Select an Algorithm</h2>
+            <p style="margin-top:15px; font-weight: 700; font-size: 1.2rem; color: #64748b;">Choose from the list to explore interactive visualizations and implementations.</p>
         </div>
     </div>
 </div>
 
 <footer>
-    &copy; 2026 Algorithm Encyclopedia. Powered by deep knowledge and elegant design.
+    &copy; 2026 Algorithm Encyclopedia. Forged with deep knowledge and <span class="text-metal-gold">metallic aesthetics</span>.
 </footer>
 
 <script>
-    // ========================= DATA: 30+ algorithms =========================
+    // ========================= DATA =========================
     const algorithms = [
         { id: 0, name: "Binary Search", paradigm: "Divide & Conquer", complexity: { best: "Ω(1)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Efficient search in sorted array by repeatedly dividing search interval in half.", 
           pseudo: "function binarySearch(arr, target):\n  left=0, right=len(arr)-1\n  while left<=right:\n    mid = (left+right)//2\n    if arr[mid]==target: return mid\n    elif arr[mid]<target: left=mid+1\n    else: right=mid-1\n  return -1", 
@@ -552,19 +630,19 @@
           pseudo: "mergeSort(arr):\n  if len<=1 return arr\n  mid=len//2\n  left=mergeSort(arr[:mid])\n  right=mergeSort(arr[mid:])\n  return merge(left,right)", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
         { id: 2, name: "Quick Sort", paradigm: "Divide & Conquer", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n²)" }, description: "Pick pivot, partition, recursively sort.", 
           pseudo: "quickSort(arr,low,high):\n  if low<high: pi=partition(...); quickSort(low,pi-1); quickSort(pi+1,high)", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
-        { id: 3, name: "Dijkstra's Algorithm", paradigm: "Graph", complexity: { best: "Ω((V+E)log V)", avg: "Θ((V+E)log V)", worst: "O((V+E)log V)" }, description: "Finds shortest paths from source to all nodes in weighted graph.", 
+        { id: 3, name: "Dijkstra's Algo", paradigm: "Graph", complexity: { best: "Ω((V+E)log V)", avg: "Θ((V+E)log V)", worst: "O((V+E)log V)" }, description: "Finds shortest paths from source to all nodes in weighted graph.", 
           pseudo: "Dijkstra(G,source):\n  dist[source]=0, PQ.push((0,source))\n  while PQ: u=pop; for v in adj: relax", visualType: "graph", practice: "https://leetcode.com/problems/network-delay-time/" },
         { id: 4, name: "Bellman-Ford", paradigm: "Graph", complexity: { best: "Ω(VE)", avg: "Θ(VE)", worst: "O(VE)" }, description: "Shortest paths with negative edges, detects negative cycles.", pseudo: "repeat |V|-1 times: relax all edges;\n check negative cycle", visualType: "graph", practice: "https://leetcode.com/problems/cheapest-flights-within-k-stops/" },
         { id: 5, name: "Floyd-Warshall", paradigm: "Dynamic Programming", complexity: { best: "Ω(V³)", avg: "Θ(V³)", worst: "O(V³)" }, description: "All-pairs shortest paths using DP", pseudo: "for k in range(V): for i in range(V): for j: dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j])", visualType: "graph", practice: "https://practice.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1" },
         { id: 6, name: "Knapsack 0/1", paradigm: "Dynamic Programming", complexity: { best: "Ω(nW)", avg: "Θ(nW)", worst: "O(nW)" }, description: "Maximize value with weight capacity.", pseudo: "dp[i][w] = max(dp[i-1][w], val[i-1] + dp[i-1][w-wt[i-1]])", visualType: "dp", practice: "https://leetcode.com/problems/partition-equal-subset-sum/" },
-        { id: 7, name: "Fractional Knapsack", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Take items by value/weight ratio.", pseudo: "sort by ratio; for each item take fraction if needed.", visualType: "greedy", practice: "https://www.geeksforgeeks.org/fractional-knapsack-problem/" },
+        { id: 7, name: "Frac Knapsack", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Take items by value/weight ratio.", pseudo: "sort by ratio; for each item take fraction if needed.", visualType: "greedy", practice: "https://www.geeksforgeeks.org/fractional-knapsack-problem/" },
         { id: 8, name: "Prim's Algorithm", paradigm: "Greedy", complexity: { best: "Ω(E log V)", avg: "Θ(E log V)", worst: "O(E log V)" }, description: "Minimum spanning tree using priority queue.", pseudo: "start from arbitrary node, add min edge to MST", visualType: "graph", practice: "https://leetcode.com/problems/min-cost-to-connect-all-points/" },
-        { id: 9, name: "Kruskal's Algorithm", paradigm: "Greedy", complexity: { best: "Ω(E log E)", avg: "Θ(E log E)", worst: "O(E log E)" }, description: "MST using union-find.", pseudo: "sort edges; if safe add to MST", visualType: "graph", practice: "https://leetcode.com/problems/connecting-cities-with-minimum-cost/" },
+        { id: 9, name: "Kruskal's Algo", paradigm: "Greedy", complexity: { best: "Ω(E log E)", avg: "Θ(E log E)", worst: "O(E log E)" }, description: "MST using union-find.", pseudo: "sort edges; if safe add to MST", visualType: "graph", practice: "https://leetcode.com/problems/connecting-cities-with-minimum-cost/" },
         { id: 10, name: "BFS (Graph)", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Traversal level by level.", pseudo: "queue start; while queue: pop, visit neighbors", visualType: "graph", practice: "https://leetcode.com/problems/number-of-islands/" },
         { id: 11, name: "DFS (Graph)", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Depth-first traversal", pseudo: "recursive: mark, for neighbor recurse", visualType: "graph", practice: "https://leetcode.com/problems/clone-graph/" },
         { id: 12, name: "Topological Sort", paradigm: "Graph", complexity: { best: "Ω(V+E)", avg: "Θ(V+E)", worst: "O(V+E)" }, description: "Ordering of DAG", pseudo: "Kahn's algorithm: indegree zero nodes", visualType: "graph", practice: "https://leetcode.com/problems/course-schedule-ii/" },
-        { id: 13, name: "KMP Pattern Matching", paradigm: "Divide & Conquer", complexity: { best: "Ω(n+m)", avg: "Θ(n+m)", worst: "O(n+m)" }, description: "Efficient substring search", pseudo: "build LPS array, then two-pointer scan", visualType: "string", practice: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" },
-        { id: 14, name: "Longest Common Subsequence", paradigm: "Dynamic Programming", complexity: { best: "Ω(mn)", avg: "Θ(mn)", worst: "O(mn)" }, description: "LCS length DP", pseudo: "dp[i][j] = dp[i-1][j-1]+1 if match else max(dp[i-1][j], dp[i][j-1])", visualType: "dp", practice: "https://leetcode.com/problems/longest-common-subsequence/" },
+        { id: 13, name: "KMP Matching", paradigm: "Divide & Conquer", complexity: { best: "Ω(n+m)", avg: "Θ(n+m)", worst: "O(n+m)" }, description: "Efficient substring search", pseudo: "build LPS array, then two-pointer scan", visualType: "string", practice: "https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" },
+        { id: 14, name: "LCS DP", paradigm: "Dynamic Programming", complexity: { best: "Ω(mn)", avg: "Θ(mn)", worst: "O(mn)" }, description: "LCS length DP", pseudo: "dp[i][j] = dp[i-1][j-1]+1 if match else max(dp[i-1][j], dp[i][j-1])", visualType: "dp", practice: "https://leetcode.com/problems/longest-common-subsequence/" },
         { id: 15, name: "Heap Sort", paradigm: "Sorting", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "In-place sort using heap", pseudo: "buildHeap, then extractMax repeatedly", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
         { id: 16, name: "Counting Sort", paradigm: "Sorting", complexity: { best: "Ω(n+k)", avg: "Θ(n+k)", worst: "O(n+k)" }, description: "Non-comparison integer sort", pseudo: "count frequencies → cumulative → output", visualType: "sort", practice: "https://www.geeksforgeeks.org/counting-sort/" },
         { id: 17, name: "Rod Cutting", paradigm: "Dynamic Programming", complexity: { best: "Ω(n²)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Maximum profit cutting rod", pseudo: "dp[i]=max(price[j]+dp[i-j-1])", visualType: "dp", practice: "https://www.geeksforgeeks.org/cutting-a-rod-dp-13/" },
@@ -573,16 +651,15 @@
         { id: 20, name: "Insertion Sort", paradigm: "Sorting", complexity: { best: "Ω(n)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Build sorted array one element at a time", pseudo: "for i=1..n-1: key=arr[i]; j=i-1; while j>=0 and arr[j]>key: swap", visualType: "sort", practice: "https://leetcode.com/problems/sort-an-array/" },
         { id: 21, name: "Selection Sort", paradigm: "Sorting", complexity: { best: "Ω(n²)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Repeatedly select minimum", pseudo: "for i in range(n): minIdx=i; for j=i+1..n: if arr[j]<arr[minIdx] update; swap", visualType: "sort", practice: "https://www.geeksforgeeks.org/selection-sort/" },
         { id: 22, name: "Activity Selection", paradigm: "Greedy", complexity: { best: "Ω(n log n)", avg: "Θ(n log n)", worst: "O(n log n)" }, description: "Maximum non-overlapping intervals", pseudo: "sort by finish, greedily pick", visualType: "greedy", practice: "https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/" },
-        { id: 23, name: "Matrix Chain Multiplication", paradigm: "Dynamic Programming", complexity: { best: "Ω(n³)", avg: "Θ(n³)", worst: "O(n³)" }, description: "Optimal parenthesization", pseudo: "dp[i][j]=min over k (dp[i][k]+dp[k+1][j]+dim[i-1]*dim[k]*dim[j])", visualType: "dp", practice: "https://leetcode.com/problems/minimum-cost-to-merge-stones/" },
+        { id: 23, name: "Matrix Chain", paradigm: "Dynamic Programming", complexity: { best: "Ω(n³)", avg: "Θ(n³)", worst: "O(n³)" }, description: "Optimal parenthesization", pseudo: "dp[i][j]=min over k (dp[i][k]+dp[k+1][j]+dim[i-1]*dim[k]*dim[j])", visualType: "dp", practice: "https://leetcode.com/problems/minimum-cost-to-merge-stones/" },
         { id: 24, name: "Bubble Sort", paradigm: "Sorting", complexity: { best: "Ω(n)", avg: "Θ(n²)", worst: "O(n²)" }, description: "Repeatedly swapping adjacent", pseudo: "for i 0..n-1 for j 0..n-i-2 if arr[j]>arr[j+1] swap", visualType: "sort", practice: "https://www.geeksforgeeks.org/bubble-sort/" },
         { id: 25, name: "Ford-Fulkerson", paradigm: "Graph", complexity: { best: "Ω(E*f)", avg: "Θ(E*f)", worst: "O(E*f)" }, description: "Find maximum flow in network", pseudo: "DFS augmenting path while possible", visualType: "graph", practice: "https://leetcode.com/problems/maximum-flow/" },
         { id: 26, name: "Edmonds-Karp", paradigm: "Graph", complexity: { best: "Ω(VE²)", avg: "Θ(VE²)", worst: "O(VE²)" }, description: "Max flow using BFS", pseudo: "BFS to find augmenting path", visualType: "graph", practice: "https://www.geeksforgeeks.org/ford-fulkerson-algorithm/" },
         { id: 27, name: "Segment Tree", paradigm: "Divide & Conquer", complexity: { best: "Ω(log n)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Range queries & updates", pseudo: "build tree, query(l,r), point update", visualType: "tree", practice: "https://leetcode.com/problems/range-sum-query-mutable/" },
-        { id: 28, name: "Fenwick Tree (BIT)", paradigm: "Divide & Conquer", complexity: { best: "Ω(log n)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Prefix sums efficiently", pseudo: "BIT update & query", visualType: "tree", practice: "https://leetcode.com/problems/range-sum-query-mutable/" },
-        { id: 29, name: "Trie (Prefix Tree)", paradigm: "Divide & Conquer", complexity: { best: "Ω(L)", avg: "Θ(L)", worst: "O(L)" }, description: "String search autocomplete", pseudo: "insert, search, startsWith", visualType: "tree", practice: "https://leetcode.com/problems/implement-trie-prefix-tree/" }
+        { id: 28, name: "Fenwick Tree", paradigm: "Divide & Conquer", complexity: { best: "Ω(log n)", avg: "Θ(log n)", worst: "O(log n)" }, description: "Prefix sums efficiently", pseudo: "BIT update & query", visualType: "tree", practice: "https://leetcode.com/problems/range-sum-query-mutable/" },
+        { id: 29, name: "Trie Tree", paradigm: "Divide & Conquer", complexity: { best: "Ω(L)", avg: "Θ(L)", worst: "O(L)" }, description: "String search autocomplete", pseudo: "insert, search, startsWith", visualType: "tree", practice: "https://leetcode.com/problems/implement-trie-prefix-tree/" }
     ];
     
-    // fill languages implementations & more.
     function getCode(algName) {
         const funcName = algName.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
         const className = algName.replace(/[^a-zA-Z0-9]/g, "");
@@ -593,7 +670,6 @@
         };
     }
 
-    // interactive visual simulation
     let currentAlg = null;
 
     function renderVisualization(alg, canvasId) {
@@ -604,11 +680,17 @@
         canvas.height = 200;
         ctx.clearRect(0,0,canvas.width,canvas.height);
         
-        ctx.font = "600 14px 'Plus Jakarta Sans'";
-        ctx.fillStyle = "#0b2545"; // Navy
+        ctx.font = "800 14px 'Plus Jakarta Sans'";
+        ctx.fillStyle = "#fff"; // White text on dark blue canvas
         
-        // Helper drawing
-        const drawRoundedRect = (x, y, w, h, r, color) => {
+        const drawRoundedRect = (x, y, w, h, r, color, glow=false) => {
+            if(glow) {
+                ctx.shadowColor = 'rgba(212, 175, 55, 0.8)';
+                ctx.shadowBlur = 20;
+            } else {
+                ctx.shadowBlur = 0;
+            }
+            
             ctx.fillStyle = color;
             ctx.beginPath();
             ctx.moveTo(x + r, y);
@@ -621,58 +703,65 @@
             ctx.lineTo(x, y + r);
             ctx.quadraticCurveTo(x, y, x + r, y);
             ctx.fill();
+            
+            ctx.shadowBlur = 0;
         }
 
         if(alg.visualType === "binary") {
             ctx.fillText("Concept: Search Space Reduction", 20, 30);
             for(let i=0;i<10;i++) { 
-                drawRoundedRect(20+i*40, 70, 32, 45, 6, "#e5e7eb"); 
-                ctx.fillStyle="#0b2545"; 
+                drawRoundedRect(20+i*40, 70, 32, 45, 6, "rgba(255,255,255,0.15)"); 
+                ctx.fillStyle="#fff"; 
                 ctx.fillText(i*2, 30+i*40, 98); 
             }
-            // Highlight
-            drawRoundedRect(20+4*40, 70, 32, 45, 6, "#c5a059"); 
-            ctx.fillStyle="#ffffff"; 
+            drawRoundedRect(20+4*40, 70, 32, 45, 6, "#d4af37", true); 
+            ctx.fillStyle="#000"; 
             ctx.fillText(8, 30+4*40, 98);
             
-            ctx.fillStyle="#0b2545";
+            ctx.fillStyle="#d4af37";
             ctx.fillText("Midpoint evaluated & matched", 20, 160);
             
         } else if(alg.visualType === "sort") {
             let bars = [60,110,40,140,80,50,120,70];
             ctx.fillText("Concept: Element Rearrangement", 20, 30);
             for(let i=0;i<bars.length;i++){ 
-                drawRoundedRect(40+i*55, 170-bars[i], 40, bars[i], 4, i%3===0 ? "#c5a059" : "#0b2545"); 
-                ctx.fillStyle="#ffffff"; 
+                const isHighlight = i%3===0;
+                drawRoundedRect(40+i*55, 170-bars[i], 40, bars[i], 4, isHighlight ? "#d4af37" : "rgba(255,255,255,0.25)", isHighlight); 
+                ctx.fillStyle = isHighlight ? "#000" : "#fff"; 
                 if (bars[i]>50) ctx.fillText(bars[i], 50+i*55, 160); 
             }
         } else if(alg.visualType === "graph") {
             ctx.fillText("Concept: Node Traversal & Shortest Path", 20, 30);
             
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "#e5e7eb";
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "rgba(255,255,255,0.3)";
             ctx.beginPath(); ctx.moveTo(120,100); ctx.lineTo(250,60); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(120,100); ctx.lineTo(250,150); ctx.stroke();
             ctx.beginPath(); ctx.moveTo(250,60); ctx.lineTo(380,100); ctx.stroke();
             
-            ctx.strokeStyle = "#c5a059"; ctx.lineWidth = 3;
+            ctx.shadowColor = 'rgba(212, 175, 55, 1)';
+            ctx.shadowBlur = 15;
+            ctx.strokeStyle = "#d4af37"; ctx.lineWidth = 4;
             ctx.beginPath(); ctx.moveTo(250,150); ctx.lineTo(380,100); ctx.stroke();
+            ctx.shadowBlur = 0;
             
-            const drawNode = (x,y,label,color) => {
-                ctx.beginPath(); ctx.arc(x,y,22,0,2*Math.PI); 
-                ctx.fillStyle = color; ctx.fill();
-                ctx.fillStyle = "white"; ctx.fillText(label, x-4, y+5);
+            const drawNode = (x,y,label,isGold) => {
+                if(isGold) { ctx.shadowColor='rgba(212,175,55,0.8)'; ctx.shadowBlur=20; }
+                ctx.beginPath(); ctx.arc(x,y,24,0,2*Math.PI); 
+                ctx.fillStyle = isGold ? "#d4af37" : "rgba(255,255,255,0.15)"; ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = isGold ? "#000" : "#fff"; ctx.fillText(label, x-4, y+5);
             };
             
-            drawNode(120,100,"A","#0b2545");
-            drawNode(250,60,"B","#0b2545");
-            drawNode(250,150,"C","#c5a059");
-            drawNode(380,100,"D","#0b2545");
+            drawNode(120,100,"A",false);
+            drawNode(250,60,"B",false);
+            drawNode(250,150,"C",true);
+            drawNode(380,100,"D",false);
 
         } else {
             ctx.fillText("Concept Illustration",20,30);
-            drawRoundedRect(100, 70, 200, 80, 10, "#0b2545");
-            ctx.fillStyle="white"; 
+            drawRoundedRect(100, 70, 200, 80, 10, "rgba(255,255,255,0.15)");
+            ctx.fillStyle="#fff"; 
             ctx.fillText("Abstract State Representation", 115, 115);
         }
     }
@@ -682,11 +771,11 @@
         const codePack = getCode(alg.name);
         panel.innerHTML = `
             <div class="detail-header-wrapper">
-                <h2 class="detail-title"><i class="fas fa-cube"></i> ${alg.name}</h2>
-                <span class="paradigm-badge" style="background:var(--navy); color:white; border:none; display:inline-block; margin-top:8px;">
+                <h2 class="detail-title"><i class="fas fa-cube text-metal-blue"></i> <span class="text-metal-blue">${alg.name}</span></h2>
+                <span class="paradigm-badge" style="background:var(--metal-white); color:var(--text-main); border:1px solid rgba(0,0,0,0.1); display:inline-block; margin-top:12px;">
                     ${alg.paradigm}
                 </span>
-                <p class="detail-desc" style="margin-top: 15px;">${alg.description}</p>
+                <p class="detail-desc" style="margin-top: 18px;">${alg.description}</p>
             </div>
             
             <div class="complexity-box">
@@ -716,22 +805,21 @@
             </div>
             
             <div id="practice" class="tab-content">
-                <p style="margin-bottom: 20px; font-size: 1.1rem;">Ready to test your skills? Try solving a related problem on LeetCode or GeeksForGeeks.</p>
+                <p style="margin-bottom: 20px; font-size: 1.2rem; color: var(--text-main); font-weight: 800;">Ready to test your skills? Try solving a related problem.</p>
                 <a href="${alg.practice}" target="_blank" class="practice-link">
                     Launch Practice Problem <i class="fas fa-external-link-alt"></i>
                 </a>
                 
                 <div class="quiz-area">
-                    <strong><i class="fas fa-question-circle"></i> Quick Knowledge Check</strong> 
-                    What is the worst-case time complexity of ${alg.name}?
+                    <strong><i class="fas fa-question-circle text-metal-gold"></i> Quick Knowledge Check</strong> 
+                    <span style="color:var(--text-main); font-weight:700;">What is the worst-case time complexity of ${alg.name}?</span>
                     <br/>
                     <button id="quizBtn" class="btn-gold">Reveal Answer</button>
-                    <p id="quizAns" style="margin-top:15px; font-weight: 600; color: var(--navy); display:none;"></p>
+                    <p id="quizAns" style="margin-top:15px; font-weight: 900; color: var(--text-main); display:none; font-size:1.2rem;"></p>
                 </div>
             </div>
         `;
         
-        // Attach tab events
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -742,22 +830,19 @@
             });
         });
         
-        // Quiz logic
         const qBtn = document.getElementById('quizBtn');
         if(qBtn) {
             qBtn.onclick = () => {
                 const ans = document.getElementById('quizAns');
-                ans.innerHTML = `<i class="fas fa-check-circle" style="color: green;"></i> The worst-case complexity is <strong>${alg.complexity.worst}</strong>.`;
+                ans.innerHTML = `<i class="fas fa-check-circle" style="color: #005c97;"></i> The worst-case complexity is <strong class="text-metal-gold" style="font-size:1.5rem;">${alg.complexity.worst}</strong>.`;
                 ans.style.display = "block";
                 qBtn.style.display = "none";
             };
         }
         
-        // Initial render for canvas if tab is active (unlikely by default, but safe)
         renderVisualization(alg, 'visCanvas');
     }
 
-    // Render list + filter + search
     let activeFilter = "all";
     let searchTerm = "";
     
@@ -770,7 +855,7 @@
         });
         
         if(filtered.length === 0) {
-            container.innerHTML = `<div style="padding:2rem; text-align:center; color:var(--text-muted);">No algorithms match your criteria. <i class="fas fa-frown-open"></i></div>`;
+            container.innerHTML = `<div style="padding:2rem; text-align:center; color:var(--text-muted); font-weight:800;">No algorithms match your criteria. <i class="fas fa-frown-open"></i></div>`;
         } else {
             container.innerHTML = filtered.map(alg => `
                 <div class="alg-item" data-id="${alg.id}">
@@ -789,7 +874,6 @@
                         document.querySelectorAll('.alg-item').forEach(i=>i.classList.remove('active'));
                         el.classList.add('active');
                         
-                        // Scroll top on mobile
                         if(window.innerWidth <= 900) {
                             document.getElementById('detailPanel').scrollIntoView({behavior: "smooth"});
                         }
@@ -798,7 +882,6 @@
             });
         }
         
-        // Maintain active state in list
         if(currentAlg && algorithms.find(a=>a.id===currentAlg.id)) {
             document.querySelectorAll('.alg-item').forEach(el=>{ 
                 if(parseInt(el.dataset.id) === currentAlg.id) el.classList.add('active'); 
@@ -820,7 +903,6 @@
         });
     });
     
-    // Default load first algorithm
     currentAlg = algorithms[0];
     renderList();
     updateDetailPanel(algorithms[0]);
